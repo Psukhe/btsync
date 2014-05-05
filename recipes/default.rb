@@ -70,7 +70,7 @@ if node['btsync'].has_key?('shared_folders')
       node_search.each do |server|
         if server['btsync'].has_key?('shared_folders') && server['btsync']['shared_folders'].has_key?(name) && server['btsync']['shared_folders'][name]['secret'] == sf['secret']
           Chef::Log.info("Found additional nodes through search that match shared folder(#{name}): #{server['ipaddress']}\n")
-          known_nodes << server['ipaddress']
+          known_nodes << server['ipaddress'] unless server['ipaddress'] == node['ipaddress']
         end
       end
       use_relay_server = sf['use_relay_server'] != nil ? sf['use_relay_server'] : node['btsync']['shared_folder_options']['use_relay_server']
