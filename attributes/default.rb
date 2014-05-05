@@ -1,6 +1,12 @@
 default['btsync']['setup']['user'] = "root"
 default['btsync']['setup']['group'] = "root"
 default['btsync']['setup']['bin_dir'] = "/usr/local/bin"
+case node['kernel']['machine']
+when "x86_64"
+  default['btsync']['setup']['download_url'] = 'http://btsync.s3-website-us-east-1.amazonaws.com/btsync_x64.tar.gz'
+when "i686"
+  default['btsync']['setup']['download_url'] = 'http://btsync.s3-website-us-east-1.amazonaws.com/btsync_i386.tar.gz'
+end
 default['btsync']['main_options']['device_name'] = Chef::Config[:node_name]
 default['btsync']['main_options']['listening_port'] = '44444'
 default['btsync']['main_options']['storage_path'] = '/data/btsync'
@@ -22,7 +28,7 @@ default['btsync']['main_options']['lan_use_tcp'] = 'true'
 default['btsync']['main_options']['rate_limit_local_peers'] = 'false'
 default['btsync']['main_options']['sync_max_time_diff'] = '300'
 default['btsync']['main_options']['sync_trash_ttl'] = '30'
-default['btsync']['known_hosts'] = %w[127.0.0.1 10.91.34.191]
+default['btsync']['known_hosts'] = %w[127.0.0.1]
 default['btsync']['main_options']['disabled_webui'] = false
 # These are default values for all of your shared folders that are added through LWRP
 # You may still specify these manually through the LWRP but in general I have found
@@ -43,7 +49,7 @@ default['btsync']['shared_folder_options']['SyncIgnore'] = %W[.DS_Store .DS_Stor
 # Adding folders without using an LWRP can be done by adding the following as your own attributes
 # A generic name must be specified for the top level key Ex: FooBarFolder
 # Required Value to specify the directory to be synced ##
-#default['btsync']['shared_folders']['FooBarFolder']C = "/path/to/some/directory"
+#default['btsync']['shared_folders']['FooBarFolder']['dir'] = "/path/to/some/directory"
 # Required Value to specify the shared secret to be used during sync ##
 #default['btsync']['shared_folders']['FooBarFolder']['secret'] = "AVERYLONGKEYTOBEUSEDASSECRET"
 # Optional (It will use the shared_folder_options value if not specified) ##

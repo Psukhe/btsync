@@ -1,6 +1,6 @@
 btsync Cookbook
 ===============
-Fast, unlimited &amp secure file-syncing.  Free from the cloud. Sync never stores your files on servers, so they stay safe from data breaches and prying eyes.
+Fast, unlimited &amp; secure file-syncing.  Free from the cloud. Sync never stores your files on servers, so they stay safe from data breaches and prying eyes.
 A more detailed and in depth FAQ and documentation about bittorrent sync can be found on: http://www.bittorrent.com/sync
 
 The btsync cookbook installs bittorrent sync and provides a simple LWRP for adding shared folders that are to be synced between multiple servers.

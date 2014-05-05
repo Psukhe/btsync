@@ -135,16 +135,9 @@ template "/etc/init.d/btsync" do
     }
   )
 end
-download_url = ""
-case node["languages"]["ruby"]["host_cpu"]
-when "x86_64"
-  download_url << "http://btsync.s3-website-us-east-1.amazonaws.com/btsync_x64.tar.gz"
-when "i686"
-  download_url << "http://btsync.s3-website-us-east-1.amazonaws.com/btsync_i386.tar.gz"
-end
 
 remote_file "#{Chef::Config[:file_cache_path]}/btsync.tar.gz" do
-  source download_url
+  source node['btsync']['setup']['download_url']  
   backup false
   notifies :run, "execute[Unpack BTSYNC Tarball]", :immediately
   not_if "test -f #{node['btsync']['setup']['bin_dir']}/btsync"
