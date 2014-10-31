@@ -79,14 +79,14 @@ if node['btsync'].has_key?('shared_folders')
       search_lan = sf['search_lan'] != nil ? sf['search_lan'] : node['btsync']['shared_folder_options']['search_lan']
       use_sync_trash = sf['use_sync_trash'] != nil ? sf['use_sync_trash'] : node['btsync']['shared_folder_options']['use_sync_trash']
       SyncIgnore = sf['SyncIgnore'] != nil ? sf['SyncIgnore'] : node['btsync']['shared_folder_options']['SyncIgnore']
-      directory "#{sf['dir']}" do
+      directory "#{sf['dir']}/.sync" do
         owner node['btsync']['setup']['user']
         group node['btsync']['setup']['group']
         mode '0775'
         recursive true
         action :create
       end
-      template "#{sf['dir']}/.SyncIgnore" do
+      template "#{sf['dir']}/.sync/IgnoreList" do
         source "SyncIgnore.erb"
         owner node['btsync']['setup']['user']
         group node['btsync']['setup']['group']
